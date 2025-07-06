@@ -2,7 +2,7 @@
 import { getCategoryTopApi } from '@/services/category'
 import { getHomeBannerAPI } from '@/services/home'
 import type { CategoryTopItem } from '@/types/category'
-import PageSkeleton from './components/PageSkeleton.vue'
+import PageSkeleton from './PageSkeleton.vue'
 import type { BannerItem } from '@/types/home'
 import { onLoad } from '@dcloudio/uni-app'
 import { computed, ref } from 'vue'

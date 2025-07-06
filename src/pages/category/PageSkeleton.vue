@@ -1,4 +1,4 @@
-<template name="skeleton">
+<template>
   <view class="sk-container">
     <view class="viewport viewport">
       <view class="search search">
