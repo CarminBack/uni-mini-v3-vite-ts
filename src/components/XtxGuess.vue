@@ -2,18 +2,47 @@
 import { getHomeGoodsGuessLikeAPI } from '@/services/home'
 import type { GuessItem } from '@/types/home'
 import { onMounted, ref } from 'vue'
+import type { PageParams } from '../types/global'
 
-//
+//组件挂载完毕
 onMounted(() => {
-  HomeGoodsGuessLikeData()
+  getHomeGoodsGuessLikeData()
 })
 
-const guessList = ref<GuessItem[]>([])
-const HomeGoodsGuessLikeData = async () => {
-  // 这里可以添加获取猜你喜欢商品数据的逻辑
-  const res = await getHomeGoodsGuessLikeAPI()
-  guessList.value = res.result.items
+// 分页参数
+// 定义一个名为PageParams的常量，类型为PageParams的Required类型
+const PageParams: Required<PageParams> = {
+  page: 30,
+  pageSize: 10,
 }
+
+// 已结束标记
+const finish = ref(false)
+// 获取猜你喜欢数据
+const guessList = ref<GuessItem[]>([])
+const getHomeGoodsGuessLikeData = async () => {
+  if (finish.value) {
+    return uni.showToast({
+      title: '没有更多数据了',
+      icon: 'none',
+    })
+  }
+  const res = await getHomeGoodsGuessLikeAPI(PageParams)
+  //   数组追加
+  guessList.value.push(...res.result.items)
+  // 如果数据长度小于 pageSize，说明没有更多数据了
+  if (res.result.pages < PageParams.page) {
+    finish.value = true
+  } else {
+    // 页码自增
+    PageParams.page++
+  }
+}
+
+// 暴露方法
+defineExpose({
+  getMore: getHomeGoodsGuessLikeData,
+})
 </script>
 
 <template>
@@ -36,7 +65,7 @@ const HomeGoodsGuessLikeData = async () => {
       </view>
     </navigator>
   </view>
-  <view class="loading-text"> 正在加载... </view>
+  <view class="loading-text"> {{ finish ? '没有更多数据了' : '上拉加载更多' }} </view>
 </template>
 
 <style lang="scss">

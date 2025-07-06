@@ -1,4 +1,4 @@
-import type { PageResult } from '@/types/global'
+import type { PageParams, PageResult } from '@/types/global'
 import type { BannerItem, CategoryItem, GuessItem, HotItem } from '@/types/home'
 import { http } from '@/utils/http'
 
@@ -43,9 +43,10 @@ export const getHomeHotAPI = async () => {
 GET
 /home/goods/guessLike
  */
-export const getHomeGoodsGuessLikeAPI = async () => {
+export const getHomeGoodsGuessLikeAPI = async (data?: PageParams) => {
   return http<PageResult<GuessItem>>({
     url: '/home/goods/guessLike',
     method: 'GET',
+    data,
   })
 }

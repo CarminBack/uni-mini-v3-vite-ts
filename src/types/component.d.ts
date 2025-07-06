@@ -8,20 +8,6 @@ declare module '@vue/runtime-core' {
   }
 }
 
-/** 猜你喜欢-商品类型 */
-export type GuessItem = {
-  /** 商品描述 */
-  desc: string
-  /** 商品折扣 */
-  discount: number
-  /** id */
-  id: string
-  /** 商品名称 */
-  name: string
-  /** 商品已下单数量 */
-  orderNum: number
-  /** 商品图片 */
-  picture: string
-  /** 商品价格 */
-  price: number
-}
+// 组件实例类型
+// 获取组件实例类型，需要使用InstanceType
+export type XtxGuessInstance = InstanceType<typeof XtxGuess>
