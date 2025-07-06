@@ -12,7 +12,7 @@ onMounted(() => {
 // 分页参数
 // 定义一个名为PageParams的常量，类型为PageParams的Required类型
 const PageParams: Required<PageParams> = {
-  page: 30,
+  page: 1,
   pageSize: 10,
 }
 
@@ -38,10 +38,21 @@ const getHomeGoodsGuessLikeData = async () => {
     PageParams.page++
   }
 }
+// 重置数据
+const resetData = () => {
+  // 重置分页参数
+  PageParams.page = 1
+  PageParams.pageSize = 10
+  // 重置猜你喜欢列表
+  guessList.value = []
+  // 重置结束标记
+  finish.value = false
+}
 
 // 暴露方法
 defineExpose({
   getMore: getHomeGoodsGuessLikeData,
+  resetData,
 })
 </script>
 
