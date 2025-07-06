@@ -1,7 +1,6 @@
 <script setup lang="ts">
 //获取屏幕安全距离
 const { safeArea } = uni.getSystemInfoSync()
-console.log(safeArea)
 </script>
 
 <template>
