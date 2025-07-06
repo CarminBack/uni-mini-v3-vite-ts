@@ -1,7 +1,23 @@
 <script setup lang="ts">
 import { useMemberStore } from '@/stores'
-
+import '@/utils/http'
 const memberStore = useMemberStore()
+
+const getData = () => {
+  console.log('请求接口')
+  uni.request({
+    url: '/home/banner',
+    method: 'GET',
+    success: (res) => {},
+    fail: (err) => {
+      console.log(err)
+      uni.showToast({
+        title: '请求失败，请稍后再试',
+        icon: 'none',
+      })
+    },
+  })
+}
 </script>
 
 <template>
@@ -11,6 +27,7 @@ const memberStore = useMemberStore()
       @tap="
         memberStore.setProfile({
           nickname: '黑马先锋',
+          token: '123',
         })
       "
       size="mini"
@@ -20,6 +37,7 @@ const memberStore = useMemberStore()
       保存用户信息
     </button>
     <button @tap="memberStore.clearProfile()" size="mini" plain type="warn">清理用户信息</button>
+    <button @tap="getData()" size="mini" plain type="warn">请求接口</button>
   </view>
 </template>
 
