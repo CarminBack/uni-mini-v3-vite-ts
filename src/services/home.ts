@@ -1,4 +1,5 @@
-import type { BannerItem, CategoryItem, HotItem } from '@/types/home'
+import type { PageResult } from '@/types/global'
+import type { BannerItem, CategoryItem, GuessItem, HotItem } from '@/types/home'
 import { http } from '@/utils/http'
 
 /**
@@ -33,6 +34,18 @@ GET
 export const getHomeHotAPI = async () => {
   return http<HotItem[]>({
     url: '/home/hot/mutli',
+    method: 'GET',
+  })
+}
+
+/**
+ * 猜你喜欢-小程序
+GET
+/home/goods/guessLike
+ */
+export const getHomeGoodsGuessLikeAPI = async () => {
+  return http<PageResult<GuessItem>>({
+    url: '/home/goods/guessLike',
     method: 'GET',
   })
 }
