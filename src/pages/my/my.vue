@@ -1,22 +1,15 @@
 <script setup lang="ts">
 import { useMemberStore } from '@/stores'
-import '@/utils/http'
+import { http } from '@/utils/http'
 const memberStore = useMemberStore()
 
-const getData = () => {
-  console.log('请求接口')
-  uni.request({
-    url: '/home/banner',
+const getData = async () => {
+  const res = await http({
     method: 'GET',
-    success: (res) => {},
-    fail: (err) => {
-      console.log(err)
-      uni.showToast({
-        title: '请求失败，请稍后再试',
-        icon: 'none',
-      })
-    },
+    url: '/home/banner', // Replace with your actual API endpoint
+    header: {},
   })
+  console.log('请求成功', res)
 }
 </script>
 

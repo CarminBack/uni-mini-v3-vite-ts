@@ -20,7 +20,7 @@ const httpInterceptor = {
     if (token) {
       options.header['Authorization'] = `Bearer ${token}`
     }
-    console.log(options)
+    // console.log(options)
   },
   //   fail(err) {
   //     console.error('Request failed:', err)
@@ -32,3 +32,21 @@ const httpInterceptor = {
 
 uni.addInterceptor('request', httpInterceptor)
 uni.addInterceptor('uploadFile', httpInterceptor)
+
+export const http = (options: UniApp.RequestOptions) => {
+  return new Promise((resolve, reject) => {
+    uni.request({
+      ...options,
+      success: (res) => {
+        if (res.statusCode === 200) {
+          resolve(res.data)
+        } else {
+          reject(new Error(`HTTP error: ${res.statusCode}`))
+        }
+      },
+      fail: (err) => {
+        reject(err)
+      },
+    })
+  })
+}
